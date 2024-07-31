@@ -61,3 +61,31 @@ article h1 {
     font-size: 16px;
     padding: 3px 10px;
 }
+
+
+article img {
+    width: 100%;
+    height: auto;
+    margin: 20px 0;
+}
+
+section h2 {
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+section p {
+    text-align:justify;
+    margin: 20px;
+}
+
+.info {
+    display: flex;
+    height: auto;
+    justify-content: space-around;
+    border: 1px solid gray;
+}
+
+.info h3 {
+    text-align: center;
+}
