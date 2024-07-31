@@ -1,3 +1,9 @@
+body {
+    width: 950px;
+    margin: auto;
+}
+
+
 header {
     display: flex;
     flex-direction: column;
@@ -10,12 +16,48 @@ header {
     margin: 20px 30px;
 }
 
-p {
-    border: 2px solid black;
+.login-container p {
+    border: 3px solid black;
     padding: 5px 20px;
 }
 
 nav {
     display: flex;
     justify-content: space-around;
+    border-top: 3px solid black;
+    border-bottom: 3px solid black;
+    padding: 5px;
+
+}
+
+article {
+    width: 750px;
+    margin: auto;
+    padding: 20px;
+}
+
+article h1 {
+    display: block;
+    text-align: center; /* Center the text */
+    font-size: 36px;
+    margin: 20px 0;
+}
+
+
+.author {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    margin: 10px 0;
+    align-items: center;
+}
+.icons {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.icons button {
+    font-size: 16px;
+    padding: 3px 10px;
 }
