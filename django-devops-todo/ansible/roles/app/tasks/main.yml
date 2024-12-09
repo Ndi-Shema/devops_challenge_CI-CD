@@ -1,0 +1,9 @@
+---
+- name: Deploy Docker container for todo app
+  docker_container:
+    name: todo-app
+    image: myapp:latest
+    state: started
+    restart_policy: always
+    ports:
+      - "5200:8000"  # Expose port 5200 for the app

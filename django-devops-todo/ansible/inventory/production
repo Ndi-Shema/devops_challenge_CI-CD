@@ -1,0 +1,5 @@
+[web]
+your_server_ip
+
+[db]
+your_database_server_ip  # If you have a separate database server
