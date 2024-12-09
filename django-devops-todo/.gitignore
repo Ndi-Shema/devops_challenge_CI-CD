@@ -22,3 +22,29 @@ Thumbs.db
 
 # Ignore log files
 *.log
+# Ignore system files
+.bash_history
+.codeium/
+.docker/
+.gitconfig
+.lesshst
+.ssh/
+.viminfo
+.vscode/
+AppData/
+NTUSER.DAT*
+package-lock.json
+package.json
+
+# Ignore unrelated projects
+../Blog-api-devOps/
+../Book_hub/
+../Bundles_exercise1/
+../community-connect-be/
+../community-connect-fe/
+../TheGym - cohort 4/
+../search Engine/
+
+# Ignore everything in home directory
+../*
+!django-devops-todo/
