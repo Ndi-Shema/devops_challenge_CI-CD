@@ -1,13 +1,14 @@
 ---
 - name: Deploy Todo App
   hosts: web
-  become: yes  # Use sudo if necessary
+  become: yes  # Use sudo if necessary for installing dependencies
+
   tasks:
-    - name: Update apt cache
+    - name: Ensure apt cache is updated
       apt:
         update_cache: yes
 
-    - name: Install dependencies (docker, python)
+    - name: Install required packages (docker and dependencies)
       apt:
         name:
           - docker.io
@@ -15,11 +16,19 @@
           - python3-pip
         state: present
 
+    - name: Install Docker Compose
+      get_url:
+        url: "https://github.com/docker/compose/releases/download/$(curl -s https://api.github.com/repos/docker/compose/releases/latest | jq -r .tag_name)/docker-compose-$(uname -s)-$(uname -m)"
+        dest: /usr/local/bin/docker-compose
+        mode: '0755'
+
     - name: Pull latest Docker image
       docker_image:
-        name: myapp
-        source: pull
+        name: python:3.8
         tag: latest
+        source: pull
+      environment:
+        DOCKER_HOST: "unix:///var/run/docker.sock"
 
     - name: Start the Docker container
       docker_container:
@@ -28,4 +37,6 @@
         state: started
         restart_policy: always
         ports:
-          - "5200:8000"  # Map the ports for the app
+          - "5200:8000"  # Map the app's internal port to the external port
+        env:
+          DJANGO_SETTINGS_MODULE: todoapi.settings.production  # Add any required environment variables

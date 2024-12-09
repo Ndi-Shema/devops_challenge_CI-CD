@@ -1,5 +1,5 @@
 [web]
-your_server_ip
+104.248.241.153 ansible_ssh_user=pelin ansible_ssh_pass=pelin
 
 [db]
-your_database_server_ip  # If you have a separate database server
+# Leave this blank for now
