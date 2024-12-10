@@ -1,7 +1,7 @@
 ---
 - name: Deploy Todo App
   hosts: web
-  become: yes  # Use sudo if necessary for installing dependencies
+  become: yes
 
   tasks:
     - name: Ensure apt cache is updated
@@ -14,29 +14,19 @@
           - docker.io
           - python3
           - python3-pip
+          - jq
+          - curl
         state: present
+
+    - name: Get latest Docker Compose version
+      shell: curl -s https://api.github.com/repos/docker/compose/releases/latest | jq -r .tag_name
+      register: docker_compose_version
+      changed_when: false
 
     - name: Install Docker Compose
       get_url:
-        url: "https://github.com/docker/compose/releases/download/$(curl -s https://api.github.com/repos/docker/compose/releases/latest | jq -r .tag_name)/docker-compose-$(uname -s)-$(uname -m)"
+        url: "https://github.com/docker/compose/releases/download/{{ docker_compose_version.stdout }}/docker-compose-Linux-x86_64"
         dest: /usr/local/bin/docker-compose
         mode: '0755'
-
-    - name: Pull latest Docker image
-      docker_image:
-        name: python:3.8
-        tag: latest
-        source: pull
-      environment:
-        DOCKER_HOST: "unix:///var/run/docker.sock"
-
-    - name: Start the Docker container
-      docker_container:
-        name: todo-app
-        image: myapp:latest
-        state: started
-        restart_policy: always
-        ports:
-          - "5200:8000"  # Map the app's internal port to the external port
-        env:
-          DJANGO_SETTINGS_MODULE: todoapi.settings.production  # Add any required environment variables
+      # Add this to prevent issues with dynamic version fetching
+      ignore_errors: no
